@@ -14,7 +14,7 @@ $(document).ready(function() {
 
     for(i = 0; i < linksPicture.length; i++){
         // how many places each picture will appear - it is always two of each picture
-        var times = linksSpaces.length / 2;
+        var times = linksSpaces.length / linksPicture.length;
         
         //randomly placing the pictures
         do {
