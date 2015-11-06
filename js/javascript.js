@@ -66,10 +66,21 @@ $(document).ready(function() {
                 lastSpaceTurned = count+1;
             }else {
                 //if it's the wrong choice, just turn the actual and the previous one back
-                document.getElementById(count+1).src = linkSpace.href;
-                document.getElementById(lastSpaceTurned).src = linkSpace.href;
-                lastImageTurned = 0;
-                imagesTurned = 0;
+                var speed = 1000;
+                
+                document.getElementById(count+1).src = image.src;
+                function showImage(){
+                    document.getElementById(count+1).src = linkSpace.href;
+                    document.getElementById(lastSpaceTurned).src = linkSpace.href;
+                    lastImageTurned = 0;
+                    imagesTurned = 0;
+                    
+                     clearInterval(show);
+                           
+                }
+
+                var show = setInterval(showImage, speed);	        
+                 
             }
         }
     }
