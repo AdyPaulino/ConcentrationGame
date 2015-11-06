@@ -45,44 +45,51 @@ $(document).ready(function() {
         });
         
         function swapImage(count) {
-            image = imageCache[count];
+            if (imagesTurned > 1){
+                //another pair will be evaluated
+                lastImageTurned = 0;
+                imagesTurned = 0;
+            } else {
+                //cannot click on same space twice
+                if ((lastSpaceTurned-1) != count){
+                    image = imageCache[count];
 
-            if (lastImageTurned == 0){
-                lastImageTurned = image.title;
-            }
-            
-            //if the images are the same, can turn
-            if (lastImageTurned == image.title){
-                document.getElementById(count+1).src = image.src;
-                
-                imagesTurned++;
-                if (imagesTurned > 1){
-                    //another pair will be evaluated
-                    lastImageTurned = 0;
-                    imagesTurned = 0;
-                }
-                
-                //save the first image turned just in case the next is a wrong one
-                lastSpaceTurned = count+1;
-            }else {
-                //if it's the wrong choice, just turn the actual and the previous one back
-                var speed = 1000;
-                
-                document.getElementById(count+1).src = image.src;
-                function showImage(){
-                    document.getElementById(count+1).src = linkSpace.href;
-                    document.getElementById(lastSpaceTurned).src = linkSpace.href;
-                    lastImageTurned = 0;
-                    imagesTurned = 0;
-                    
-                     clearInterval(show);
-                           
-                }
+                    if (lastImageTurned == 0){
+                        lastImageTurned = image.title;
+                    }
 
-                var show = setInterval(showImage, speed);	        
-                 
-            }
+
+                    if (lastImageTurned == image.title){
+                        //if the images are the same, can turn
+                        document.getElementById(count+1).src = image.src;
+
+                        imagesTurned++;
+
+                        //save the first image turned just in case the next is a wrong one
+                        lastSpaceTurned = count+1;
+                    }else {
+                        
+                        var speed = 600;
+
+                        document.getElementById(count+1).src = image.src;
+                        function turnImageBack(){
+                            /*if it's the wrong choice, just turn the actual 
+                                and the previous one back*/
+                            document.getElementById(count+1).src = linkSpace.href;
+                            document.getElementById(lastSpaceTurned).src = linkSpace.href;
+                            lastImageTurned = 0;
+                            imagesTurned = 0;
+
+                            clearInterval(turnBack);
+
+                        }
+
+                        //after 0.6 seconds turn the image back
+                        var turnBack = setInterval(turnImageBack, speed);	        
+
+                    }
+                }
+            }   
         }
     }
-
 });
